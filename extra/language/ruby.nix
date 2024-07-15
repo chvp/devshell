@@ -28,12 +28,10 @@ with lib;
     };
     devshell.packages = with pkgs; [
       cfg.package
-      # Used by mkmf, the standard gem build tool
-      (lowPrio binutils)
       file
       findutils
       gnumake
-    ];
+    ] ++ lib.optional stdenv.isLinux (lowPrio binutils); # Used by mkmf, the standard gem build tool
     env = [
       { name = "CC"; value = "cc"; }
       { name = "CPP"; value = "cpp"; }
